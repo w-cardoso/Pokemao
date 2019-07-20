@@ -4,10 +4,7 @@ import com.wevs.pokemao.model.HealthResponse
 import com.wevs.pokemao.model.Pokemon
 import com.wevs.pokemao.model.PokemonResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface PokemonService {
     @GET("/api/pokemon/health")
@@ -24,6 +21,10 @@ interface PokemonService {
         @Body pokemon: Pokemon
     ): Call<Pokemon>
 
+    @GET("/api/pokemon/{number}")
+    fun getPokemon(
+        @Path("number") number: String
+    ): Call<Pokemon>
 
 
 }
