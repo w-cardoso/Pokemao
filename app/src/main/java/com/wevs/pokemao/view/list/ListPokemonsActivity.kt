@@ -24,7 +24,6 @@ class ListPokemonsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_pokemons)
 
-        listPokemonsViewModel.getPokemons()
 
         listPokemonsViewModel.isLoading.observe(this, Observer {
             if (it == true) {
@@ -45,10 +44,14 @@ class ListPokemonsActivity : AppCompatActivity() {
                 val intent = Intent(this, FormPokemonActivity::class.java)
                 intent.putExtra("POKEMON", it)
                 startActivity(intent)
-                finish()
             }
             rvPokemons.layoutManager = GridLayoutManager(this, 3)
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listPokemonsViewModel.getPokemons()
     }
 }
 
