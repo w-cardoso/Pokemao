@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+ext.anko_version='0.10.8'
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -33,4 +36,26 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    //Biblioteca para consumir webservice
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+
+    //Biblioteca para realizar o parse json para objeto/objeto para json
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
+    //Biblioteca para fazer debug das requests
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    //Biblioteca para auxiliar o carregamento de imagens no aplicativo
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Biblioteca AAC
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+
+    //Injecao de dependencia
+    implementation "org.koin:koin-android-viewmodel:2.0.1"
+    implementation "org.koin:koin-android:2.0.1"
+
+
 }
