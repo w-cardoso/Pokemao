@@ -3,17 +3,23 @@ package com.wevs.pokemao.repository
 import com.wevs.pokemao.model.Pokemon
 
 
-interface PokemonRepository{
+interface PokemonRepository {
 
     fun checkHealth(
-        onComplete : () -> Unit,
-        onError:(t: Throwable) -> Unit
+        onComplete: () -> Unit,
+        onError: (t: Throwable) -> Unit
     )
 
     fun getPokemon(
         sort: String,
         size: Int,
-        onComplete : (List<Pokemon>) -> Unit,
-        onError:(t: Throwable) -> Unit
+        onComplete: (List<Pokemon>) -> Unit,
+        onError: (t: Throwable) -> Unit
+    )
+
+    fun updatePokemon(
+        pokemon: Pokemon,
+        onComplete: (Pokemon) -> Unit,
+        onError: (t: Throwable) -> Unit
     )
 }

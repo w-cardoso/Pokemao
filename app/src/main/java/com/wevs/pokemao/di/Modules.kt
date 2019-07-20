@@ -1,10 +1,15 @@
 package com.wevs.pokemao.di
 
+import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.squareup.picasso.Downloader
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 import com.wevs.pokemao.api.PokemonService
 import com.wevs.pokemao.api.interceptor.AuthInterceptor
 import com.wevs.pokemao.repository.PokemonRepository
 import com.wevs.pokemao.repository.PokemonRepositoryImpl
+import com.wevs.pokemao.view.form.FormPokemonViewModel
 import com.wevs.pokemao.view.list.ListPokemonsViewModel
 import com.wevs.pokemao.view.splash.SplashViewModel
 import okhttp3.Interceptor
@@ -19,6 +24,7 @@ val netWorkModule = module {
     single<Interceptor> { AuthInterceptor() }
     single { createOkhttpClientAuth(get()) }
     single { createNetworkClient(get()).create(PokemonService::class.java) }
+    single { createPicassoAuth(get(), get()) }
 }
 
 val repositoryModule = module {
@@ -28,6 +34,7 @@ val repositoryModule = module {
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { ListPokemonsViewModel(get()) }
+    viewModel { FormPokemonViewModel(get()) }
 
 }
 
@@ -47,4 +54,11 @@ private fun createOkhttpClientAuth(authInterceptor: Interceptor): OkHttpClient {
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
     return builder.build()
+}
+
+private fun createPicassoAuth(context: Context, okHttpClient: OkHttpClient): Picasso {
+    return Picasso
+        .Builder(context)
+        .downloader(OkHttp3Downloader(okHttpClient) as Downloader)
+        .build()
 }

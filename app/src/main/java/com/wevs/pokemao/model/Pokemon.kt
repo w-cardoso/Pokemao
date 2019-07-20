@@ -1,38 +1,18 @@
 package com.wevs.pokemao.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Pokemon(
-    @SerializedName("number")
-    @Expose
     val number: String,
-
-    @SerializedName("name")
-    @Expose
     val name: String,
-
-    @SerializedName("ps")
-    @Expose
-    val ps: Int,
-
-    @SerializedName("attack")
-    @Expose
-    val attack: Int,
-
-    @SerializedName("defense")
-    @Expose
-    val defense: Int,
-
-    @SerializedName("velocity")
-    @Expose
-    val velocity: Int,
-
-    @SerializedName("generation")
-    @Expose
+    var ps: Int,
+    var attack: Int,
+    var defense: Int,
+    var velocity: Int,
     val generation: Int,
-
-    @SerializedName("imageURL")
-    @Expose
     val imageURL: String
-)
+) : Parcelable

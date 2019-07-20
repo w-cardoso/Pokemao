@@ -9,6 +9,23 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PokemonRepositoryImpl(private val pokemonService: PokemonService) : PokemonRepository {
+    override fun updatePokemon(pokemon: Pokemon, onComplete: (Pokemon) -> Unit, onError: (t: Throwable) -> Unit) {
+        pokemonService.updatePokemon(pokemon).enqueue(object : Callback<Pokemon> {
+            override fun onFailure(call: Call<Pokemon>, t: Throwable) {
+                onError(t)
+            }
+
+            override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { onComplete(it) }
+                } else {
+                    onError(Throwable("Não foi possível realizar a requisição"))
+                }
+            }
+
+        })
+    }
+
 
     override fun getPokemon(
         sort: String,

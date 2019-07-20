@@ -4,11 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.wevs.pokemao.R
 import com.wevs.pokemao.model.Pokemon
 import kotlinx.android.synthetic.main.pokemon_list_item.view.*
 
-class ListPokemonsAdapter(val pokemons: List<Pokemon>) : RecyclerView.Adapter<ListPokemonsAdapter.PokemonViewHolder>() {
+class ListPokemonsAdapter(
+    val pokemons: List<Pokemon>,
+    val picasso: Picasso,
+    val clickListener: (Pokemon) -> Unit
+) : RecyclerView.Adapter<ListPokemonsAdapter.PokemonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pokemon_list_item, parent, false)
@@ -21,14 +26,21 @@ class ListPokemonsAdapter(val pokemons: List<Pokemon>) : RecyclerView.Adapter<Li
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
         val pokemon = pokemons[position]
-        holder.bindView(pokemon)
+        holder.bindView(pokemon, picasso, clickListener)
     }
 
     class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(pokemon: Pokemon) = with(itemView) {
+        fun bindView(
+            pokemon: Pokemon,
+            picasso: Picasso,
+            clickListener: (Pokemon) -> Unit
+        ) = with(itemView) {
             tvPokemonName.text = pokemon.name
             tvPokemonNumber.text = pokemon.number
+            picasso.load("https://pokedexdx.herokuapp.com${pokemon.imageURL}").into(ivPokemon)
+
+            setOnClickListener { clickListener(pokemon) }
         }
     }
 }
