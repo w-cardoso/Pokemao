@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PokemonRepositoryImpl(val pokemonService: PokemonService) : PokemonRepository {
+class PokemonRepositoryImpl(private val pokemonService: PokemonService) : PokemonRepository {
 
     override fun getPokemon(
         sort: String,

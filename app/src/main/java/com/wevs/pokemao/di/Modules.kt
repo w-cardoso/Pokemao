@@ -5,6 +5,7 @@ import com.wevs.pokemao.api.PokemonService
 import com.wevs.pokemao.api.interceptor.AuthInterceptor
 import com.wevs.pokemao.repository.PokemonRepository
 import com.wevs.pokemao.repository.PokemonRepositoryImpl
+import com.wevs.pokemao.view.list.ListPokemonsViewModel
 import com.wevs.pokemao.view.splash.SplashViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -26,6 +27,8 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
+    viewModel { ListPokemonsViewModel(get()) }
+
 }
 
 private fun createNetworkClient(okHttpClient: OkHttpClient): Retrofit {
